@@ -28,6 +28,26 @@ def trial_post():
     return jsonify(status="ok")
 
 
+@app.route('/update_user', methods=['PUT'])
+def update_user():
+    id = request.form['id']
+    name = request.form['name']
+    email = request.form['email']
+    phone = request.form['phone']
+    db =Db()
+    qry =  "UPDATE `users` SET `name`='"+name+"',`email`='"+email+"',`phone`='"+phone+"' WHERE `in`='"+id+"'"
+    res = db.update(qry)
+    return  jsonify(status ="ok")
+
+@app.route('/delete_user', methods=['DELETE'])
+def delete_user():
+    id = request.form['id']
+    db= Db()
+    qry="DELETE FROM`users` WHERE `in`='"+id+"'"
+    res = db.delete(qry)
+    return  jsonify(status ="ok")
+
+
 
 if __name__ == '__main__':
     app.run(debug=True,port=4000,host="0.0.0.0")
